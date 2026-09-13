@@ -18,6 +18,28 @@ if sys.stdout.encoding != 'utf-8':
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, "static_expressions")
 
+# Otomatis cari Python yang punya pygame (utamakan .venv lokal atau Python 3.12)
+def get_python_exe():
+    candidates = [
+        os.path.join(BASE_DIR, ".venv", "Scripts", "python.exe"),
+        r"C:\Users\ASCARYA\AppData\Local\Python\pythoncore-3.12-64\python.exe",
+        sys.executable
+    ]
+    for exe in candidates:
+        if os.path.exists(exe):
+            return exe
+    return sys.executable
+
+PYTHON_EXE = get_python_exe()
+
+# Jika script dijalankan dengan Python yang salah (misal 3.14 tanpa pygame),
+# otomatis alihkan ke PYTHON_EXE yang benar!
+try:
+    import pygame
+except ImportError:
+    if PYTHON_EXE != sys.executable:
+        os.execv(PYTHON_EXE, [PYTHON_EXE] + sys.argv)
+
 EXPRESSIONS = {
     "1": ("rshock.py", "[SHOCK]   Terkejut / Shocked (Blueprint)"),
     "2": ("rhappy.py", "[HAPPY]   Senang / Happy (Blueprint)"),
@@ -30,6 +52,7 @@ def main():
     print("=" * 60)
     print("    🤖 BRONE v3 - Unified Expression Launcher")
     print("=" * 60)
+    print(f"  [Interpreter]: {PYTHON_EXE}")
     print()
     print("  ⭐ [D] RUN DYNAMIC ENGINE (Transisi Halus + Talking)")
     print("         (Dilengkapi saklar Mode Statis <-> Dinamis via tombol 'M')")
@@ -53,7 +76,7 @@ def main():
             print("\n  >> Menjalankan: BRONE DYNAMIC ENGINE...")
             print("  (Gunakan tombol [M], [1-4], [0], [T], [B] di dalam jendela)")
             run_script = os.path.join(BASE_DIR, "run_dynamic.py")
-            subprocess.run([sys.executable, run_script])
+            subprocess.run([PYTHON_EXE, run_script])
             input("\n  Tekan Enter untuk kembali ke menu...")
             main()
             return
@@ -69,7 +92,7 @@ def main():
             print(f"\n  >> Menjalankan: {label}")
             print("  (Tutup jendela pygame untuk kembali ke menu)\n")
             
-            subprocess.run([sys.executable, filepath])
+            subprocess.run([PYTHON_EXE, filepath])
             
             print(f"\n  [DONE] Selesai preview: {label}")
             input("  Tekan Enter untuk kembali ke menu...")

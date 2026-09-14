@@ -1,5 +1,4 @@
-﻿# -*- coding: utf-8 -*-
-"""
+﻿"""
 BRONE v3 - Expression Launcher
 ==============================
 Menu pengujian terpadu untuk:
@@ -18,16 +17,11 @@ if sys.stdout.encoding != 'utf-8':
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, "static_expressions")
 
-# Otomatis cari Python yang punya pygame (utamakan .venv lokal atau Python 3.12)
+# Otomatis cari Python yang punya pygame (utamakan .venv lokal)
 def get_python_exe():
-    candidates = [
-        os.path.join(BASE_DIR, ".venv", "Scripts", "python.exe"),
-        r"C:\Users\ASCARYA\AppData\Local\Python\pythoncore-3.12-64\python.exe",
-        sys.executable
-    ]
-    for exe in candidates:
-        if os.path.exists(exe):
-            return exe
+    venv_exe = os.path.join(BASE_DIR, ".venv", "Scripts", "python.exe")
+    if os.path.exists(venv_exe):
+        return venv_exe
     return sys.executable
 
 PYTHON_EXE = get_python_exe()
@@ -80,12 +74,12 @@ def draw_menu(status=None):
     # TUI layar penuh: selalu digambar ulang di posisi yang sama (tidak meloncat)
     os.system("cls" if os.name == "nt" else "clear")
     print("=" * 60)
-    print("    🤖 BRONE v3 - Unified Expression Launcher")
+    print("     BRONE v3 - Unified Expression Launcher")
     print("=" * 60)
     print(f"  [Interpreter]: {PYTHON_EXE}")
     print(f"  [Build]       preview.py v3.3 (TUI full-screen, tidak meloncat)")
     print()
-    print("  ⭐ [D] RUN DYNAMIC ENGINE (Transisi Halus + Talking)")
+    print("   [D] RUN DYNAMIC ENGINE (Transisi Halus + Talking)")
     print("         (Dilengkapi saklar Mode Statis <-> Dinamis via tombol 'M')")
     print()
     print("  --- Cetak Biru Statis Individual ---")
@@ -107,7 +101,7 @@ def main():
         choice = input("  Pilih menu (D, 1-4, atau Q): ").strip().lower()
         trace(f"input menu: {choice!r}")
         if choice == "q":
-            print("Sampai jumpa! 👋")
+            print("Sampai jumpa! ")
             trace("pilih q -> selesai")
             break
 
@@ -155,7 +149,7 @@ if __name__ == "__main__":
         trace("main() selesai normal")
     except (EOFError, KeyboardInterrupt):
         trace("EOFError / KeyboardInterrupt")
-        print("\n  Sampai jumpa! 👋")
+        print("\n  Sampai jumpa! ")
     except Exception as e:
         trace(f"EXCEPTION: {type(e).__name__}: {e}")
         import traceback

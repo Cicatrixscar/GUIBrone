@@ -1,8 +1,8 @@
-﻿# BRONE v3 - Dynamic & Static Expression Engine
+# BRONE v3 - Dynamic & Static Expression Engine
 
 Repositori ini adalah iterasi bersih (clean architecture) untuk pengembangan sistem ekspresi robot BRONE 1024x600.
 
-## 🗂️ Struktur Direktori
+##  Struktur Direktori
 
 ```
 brone-v3/
@@ -21,8 +21,9 @@ brone-v3/
 └── .vscode/settings.json        # Konfigurasi Python 3.12 untuk editor
 ```
 
-## 🚀 Cara Menjalankan
-Jalankan preview launcher dengan Python 3.12:
+##  Cara Menjalankan
+Aktifkan venv Python 3.12 lalu jalankan preview launcher:
 ```bash
-py -3.12 preview.py
+.venv\Scripts\activate
+python preview.py
 ```

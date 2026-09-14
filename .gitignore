@@ -1,4 +1,7 @@
-﻿# Python cache
+AGENTS.md
+.python-version
+
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class

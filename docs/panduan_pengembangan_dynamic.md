@@ -1,10 +1,10 @@
-﻿# 📘 Panduan Arsitektur & Pengembangan BRONE Dynamic Engine (v3)
+﻿#  Panduan Arsitektur & Pengembangan BRONE Dynamic Engine (v3)
 
 Folder `dynamic_engine/` adalah implementasi sistem ekspresi robot berbasis prinsip jurnal **Xpress** (*Antony et al., Johns Hopkins University*).
 
 ---
 
-## 🏛️ Arsitektur Sistem
+##  Arsitektur Sistem
 
 Sistem ini memisahkan antara **State/Parameter**, **Motion Interpolator**, dan **Renderer**:
 
@@ -35,7 +35,7 @@ Sistem ini memisahkan antara **State/Parameter**, **Motion Interpolator**, dan *
 
 ---
 
-## 🎮 Kontrol Keyboard di Dynamic Engine
+##  Kontrol Keyboard di Dynamic Engine
 
 | Tombol | Fungsi | Keterangan |
 |---|---|---|
@@ -52,7 +52,7 @@ Sistem ini memisahkan antara **State/Parameter**, **Motion Interpolator**, dan *
 
 ---
 
-## 🛠️ Cara Menambah Emosi Baru
+##  Cara Menambah Emosi Baru
 
 Untuk menambah emosi baru (misal: `SAD`, `SHY`, atau `ANGRY`):
 1. Buka `dynamic_engine/state.py`.

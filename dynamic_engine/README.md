@@ -18,9 +18,9 @@ dynamic_engine/
 | File | Peran |
 |---|---|
 | `state.py` | Mendefinisikan `FaceState` (kumpulan DoF wajah: ukuran/rotasi mata, pupil/gaze, kedip, warna & air mata, ukuran/gaya mulut, bukaan bicara) dan `EMOTION_BANK` berisi 5 preset: `NEUTRAL`, `HAPPY`, `SHOCK`, `CRY`, `LOAD`. |
-| `interpolator.py` | `FaceInterpolator` menggeser state aktif mendekati state target secara halus (exponential smoothing, independen FPS), menghidupkan FSM kedip natural (`idle → closing → opening`), serta osilasi buka-tutup mulut saat talking aktif. Mendukung 2 mode: `DYNAMIC` (halus) dan `STATIC` (instan). |
+| `interpolator.py` | `FaceInterpolator` menggeser state aktif mendekati state target secara halus (exponential smoothing, independen FPS), menghidupkan FSM kedip natural (`idle  closing  opening`), serta osilasi buka-tutup mulut saat talking aktif. Mendukung 2 mode: `DYNAMIC` (halus) dan `STATIC` (instan). |
 | `renderer.py` | `FaceRenderer` menggambar mata gradasi + kilau glint, kabel robot, aliran air mata, kelopak kedip, 4 gaya mulut (`neutral`, `oval`, `smile`, `sad`) + lidah, dan HUD. Menggunakan surface pre-allocated untuk mencegah lag akibat alokasi berulang (antisipasi Jetson Nano). |
-| `main.py` | Membuka jendela pygame, menjalankan loop 60 FPS berbasis delta-time, memetakan input keyboard ke aksi, lalu merangkai `interpolator.update(dt)` → `FaceRenderer.draw(...)` → `pygame.display.flip()`. |
+| `main.py` | Membuka jendela pygame, menjalankan loop 60 FPS berbasis delta-time, memetakan input keyboard ke aksi, lalu merangkai `interpolator.update(dt)`  `FaceRenderer.draw(...)`  `pygame.display.flip()`. |
 
 ## Alur Data
 
@@ -40,7 +40,7 @@ Jendela 1024×600
 
 Ringkasnya:
 
-- **`state.py`** = library koordinat ekspresi → tiap emosi hanyalah kumpulan angka.
+- **`state.py`** = library koordinat ekspresi  tiap emosi hanyalah kumpulan angka.
 - **`interpolator.py`** = transisi pergantian antar kumpulan angka tersebut (plus kedip & bicara).
 - **`renderer.py`** = menampilkan angka tersebut menjadi gambar.
 - **`main.py`** = loop yang menyambungkan dan menggerakkan semuanya.
@@ -70,7 +70,7 @@ Buka `preview.py` lalu pilih opsi **`D`** (RUN DYNAMIC ENGINE).
 
 | Tombol | Fungsi |
 |---|---|
-| `M` | Toggle MODE: `DYNAMIC` (transisi halus) ↔ `STATIC` (berganti instan) |
+| `M` | Toggle MODE: `DYNAMIC` (transisi halus)  `STATIC` (berganti instan) |
 | `1` | Ekspresi HAPPY (senang) |
 | `2` | Ekspresi SHOCK (terkejut) |
 | `3` | Ekspresi CRY (menangis) |

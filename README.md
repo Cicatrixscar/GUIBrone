@@ -22,7 +22,8 @@ brone-v3/
 ```
 
 ## 🚀 Cara Menjalankan
-Jalankan preview launcher dengan Python 3.12:
+Aktifkan venv Python 3.12 lalu jalankan preview launcher:
 ```bash
-py -3.12 preview.py
+.venv\Scripts\activate
+python preview.py
 ```

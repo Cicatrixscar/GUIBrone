@@ -1,5 +1,4 @@
-﻿# -*- coding: utf-8 -*-
-"""
+﻿"""
 BRONE v3 - Expression Launcher
 ==============================
 Menu pengujian terpadu untuk:
@@ -18,16 +17,11 @@ if sys.stdout.encoding != 'utf-8':
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, "static_expressions")
 
-# Otomatis cari Python yang punya pygame (utamakan .venv lokal atau Python 3.12)
+# Otomatis cari Python yang punya pygame (utamakan .venv lokal)
 def get_python_exe():
-    candidates = [
-        os.path.join(BASE_DIR, ".venv", "Scripts", "python.exe"),
-        r"C:\Users\ASCARYA\AppData\Local\Python\pythoncore-3.12-64\python.exe",
-        sys.executable
-    ]
-    for exe in candidates:
-        if os.path.exists(exe):
-            return exe
+    venv_exe = os.path.join(BASE_DIR, ".venv", "Scripts", "python.exe")
+    if os.path.exists(venv_exe):
+        return venv_exe
     return sys.executable
 
 PYTHON_EXE = get_python_exe()

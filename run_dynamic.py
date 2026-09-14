@@ -20,17 +20,13 @@ def ensure_correct_python():
     try:
         import pygame
     except ImportError:
-        candidates = [
-            os.path.join(BASE_DIR, ".venv", "Scripts", "python.exe"),
-            r"C:\Users\ASCARYA\AppData\Local\Python\pythoncore-3.12-64\python.exe",
-        ]
-        for exe in candidates:
-            if os.path.exists(exe):
-                try:
-                    os.execv(exe, [exe] + sys.argv)
-                except OSError as e:
-                    print(f"[FATAL] Gagal restart dengan {exe}: {e}")
-                    sys.exit(1)
+        venv_exe = os.path.join(BASE_DIR, ".venv", "Scripts", "python.exe")
+        if os.path.exists(venv_exe):
+            try:
+                os.execv(venv_exe, [venv_exe] + sys.argv)
+            except OSError as e:
+                print(f"[FATAL] Gagal restart dengan {venv_exe}: {e}")
+                sys.exit(1)
         print("[FATAL] Tidak ada interpreter dengan pygame ditemukan.")
         print("Install pygame atau jalankan via preview.py / .venv.")
         sys.exit(1)

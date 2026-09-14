@@ -2,7 +2,7 @@
 
 Repositori ini adalah iterasi bersih (clean architecture) untuk pengembangan sistem ekspresi robot BRONE 1024x600.
 
-## 🗂️ Struktur Direktori
+##  Struktur Direktori
 
 ```
 brone-v3/
@@ -21,7 +21,7 @@ brone-v3/
 └── .vscode/settings.json        # Konfigurasi Python 3.12 untuk editor
 ```
 
-## 🚀 Cara Menjalankan
+##  Cara Menjalankan
 Aktifkan venv Python 3.12 lalu jalankan preview launcher:
 ```bash
 .venv\Scripts\activate

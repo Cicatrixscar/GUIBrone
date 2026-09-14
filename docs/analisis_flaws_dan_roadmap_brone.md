@@ -1,10 +1,10 @@
-# 🔍 Dokumen Analisis Flaw, Keterbatasan Kode, & Blueprint Pengembangan BRONE Expression v2
+#  Dokumen Analisis Flaw, Keterbatasan Kode, & Blueprint Pengembangan BRONE Expression v2
 
 > Dokumen ini disusun sebagai panduan audit menyeluruh terhadap kode pada repositori `brone-expression-v2` serta penyelarasan dengan paradigma sistem ekspresi dinamis yang diadaptasi dari jurnal riset **Xpress** (*Antony et al., Johns Hopkins University*).
 
 ---
 
-## 📑 Daftar Isi
+##  Daftar Isi
 1. [Executive Summary: Masalah Utama Sistem Saat Ini](#1-executive-summary-masalah-utama-sistem-saat-ini)
 2. [Audit Kode & Flaw Kritis per File](#2-audit-kode--flaw-kritis-per-file)
    - [A. rcry.py (Ekspresi Menangis)](#a-rcrypy)
@@ -237,26 +237,26 @@ Buat kamus target state untuk emosi dasar:
 
 Berikut adalah rekapitulasi poin-demi-poin seluruh cacat kode (*code flaws*) dan kelemahan sistem yang ditemukan pada repositori ini:
 
-### 🔴 Kategori 1: Bug Kritis & Masalah Performa (Rendering & Memory)
+###  Kategori 1: Bug Kritis & Masalah Performa (Rendering & Memory)
 - [ ] **Duplikasi Render Mulut (`rcry.py:L219-L253`):** Poligon dan lidah mulut digambar dan di-blit dua kali berturut-turut di tiap frame, menimpa gambar sebelumnya dan menggandakan beban draw call.
 - [ ] **Alokasi Surface Berulang di Main Loop (Semua File):** `pygame.Surface((w, h), pygame.SRCALPHA)` dialokasikan berulang kali setiap frame (60 kali/detik) untuk mata dan mulut, memicu lonjakan Garbage Collector dan *micro-stuttering* di Jetson Nano.
 - [ ] **Kalkulasi Trigonometri CPU Berat (`rcry.py:L94`):** Pemanggilan fungsi sinus sebanyak 15.600 kali per detik di CPU untuk membuat gelombang air mata per pixel tanpa vektorisasi/caching.
 - [ ] **Rotasi Raster Software Berat (`rload.py:L97`):** Menggunakan `pygame.transform.rotate()` pada surface bertingkat setiap frame di CPU tanpa akselerasi grafis hardware.
 - [ ] **Redundansi Komputasi Mulut Senang (`rhappy.py:L166`):** Bentuk mulut bersifat statis 100%, tetapi pembuatan surface kanvas dan masking elips lidah tetap diulang 60 kali per detik alih-alih di-cache satu kali.
 
-### 🟡 Kategori 2: Flaw Logika Animasi & Visual Glitch
+###  Kategori 2: Flaw Logika Animasi & Visual Glitch
 - [ ] **Anomali Mulut Kejang saat Kedip (`rshock.py:L154-L157`):** Tinggi dan lebar mulut dikaitkan langsung ke `blink_progress`. Mulut kaget menciut dan gepeng setiap kali robot berkedip, tampak seperti kejang/spasme visual.
 - [ ] **Animasi Terikat Frame Rate (Tanpa Delta Time / $dt$):** Progres animasi dihitung dengan penambahan nilai konstan (`+= 0.15`). Jika beban CPU naik dan FPS turun ke 30, pergerakan wajah robot otomatis menjadi *slow motion*.
 - [ ] **Clipping Kasar Eyelid (`draw_eyelid`):** Penutup kelopak mata menggunakan balok persegi (`pygame.draw.rect`) dengan warna background, memotong garis kabel atas mata dan aliran air mata secara tidak rapi saat menutup.
 - [ ] **Inkonsistensi Geometri Kabel Antar-File:** Posisi ujung sambungan kabel atas berbeda antar file (contoh: di `rload.py` diberi offset `+ 20`, sedangkan di `rhappy.py` tepat di `top`).
 
-### 🟠 Kategori 3: Flaw Arsitektur (Penyebab Wajah Tidak Bisa Berganti Dinamis)
+###  Kategori 3: Flaw Arsitektur (Penyebab Wajah Tidak Bisa Berganti Dinamis)
 - [ ] **Arsitektur Skrip Terisolasi (Silo Execution):** Setiap file `r*.py` memiliki inisialisasi display, clock, dan while-loop mandiri. Tidak ada satu engine terpusat.
 - [ ] **Ketiadaan Engine Transisi / Interpolasi (Lerp/Tweening):** Tidak ada fungsi transisi parameter dari ekspresi A ke ekspresi B; wajah terkunci kaku pada satu bentuk poligon permanen.
 - [ ] **Pergantian Ekspresi via Subprocess Mematikan:** Di `preview.py`, ekspresi dijalankan via `subprocess.run()`. Untuk mengganti ekspresi, proses Pygame harus di-kill dan dihidupkan ulang, menimbulkan *screen flicker* dan jeda waktu lama.
 - [ ] **Ketiadaan Parameterisasi Terpadu (Degrees of Freedom):** Komponen wajah (mata, alis, bukaan mulut, kurva senyum) tidak dimodelkan sebagai variabel angka yang bisa diubah-ubah, melainkan koordinat hardcoded.
 
-### ⚪ Kategori 4: File Kosong & Fitur Esensial Belum Terwujud
+###  Kategori 4: File Kosong & Fitur Esensial Belum Terwujud
 - [ ] **Stub Kosong 0-Byte:** File `rhappier.py`, `rsad.py`, `rshy.py`, dan `rtalkingState.py` masih berukuran 0 byte.
 - [ ] **Ketiadaan Artikulasi Mulut Bicara (`rtalkingState`):** Belum ada modul artikulasi rahang/mulut (*viseme modulation*) saat robot memutar suara atau berbicara.
 - [ ] **Ketiadaan Input Sensor / Jaringan:** Variabel `pup_ox` dan `pup_oy` hanya bernilai `0`. Belum ada listener MQTT (`robot/expression`) atau socket MediaPipe untuk membaca pergerakan pupil secara nyata dari kamera.

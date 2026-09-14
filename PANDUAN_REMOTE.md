@@ -1,4 +1,4 @@
-# 📖 Panduan Akses Remote & Pengujian Ekspresi BRONE
+#  Panduan Akses Remote & Pengujian Ekspresi BRONE
 
 Dokumentasi ini menjelaskan prosedur standar untuk menghubungkan perangkat lokal ke Jetson Nano melalui jaringan, menavigasi direktori proyek, dan menguji modul ekspresi wajah.
 
@@ -54,7 +54,7 @@ cd expression/
 cd REFINEMENT/
 ```
 
-> **💡 Tips Cepat:** sekaligus dengan satu perintah: 
+> ** Tips Cepat:** sekaligus dengan satu perintah: 
 > `cd main-program-brone/IntegrateSpeechExpression/expression/REFINEMENT/`
 
 ### C. Mengecek dan Mengedit Kodingan Ekspresi

@@ -36,7 +36,7 @@ def run_engine():
     
     running = True
     print("=" * 60)
-    print("  🤖 BRONE Face Engine Berjalan!")
+    print("   BRONE Face Engine Berjalan!")
     print("=" * 60)
     print("  [M] Toggle MODE (DYNAMIC <--> STATIC)")
     print("  [1] Happy   [2] Shock   [3] Cry   [4] Load   [0] Neutral")

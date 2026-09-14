@@ -7,6 +7,12 @@ Jalankan langsung dengan:
 import sys
 import os
 
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Otomatis pastikan menggunakan Python yang memiliki pygame
@@ -20,7 +26,14 @@ def ensure_correct_python():
         ]
         for exe in candidates:
             if os.path.exists(exe):
-                os.execv(exe, [exe] + sys.argv)
+                try:
+                    os.execv(exe, [exe] + sys.argv)
+                except OSError as e:
+                    print(f"[FATAL] Gagal restart dengan {exe}: {e}")
+                    sys.exit(1)
+        print("[FATAL] Tidak ada interpreter dengan pygame ditemukan.")
+        print("Install pygame atau jalankan via preview.py / .venv.")
+        sys.exit(1)
 
 ensure_correct_python()
 

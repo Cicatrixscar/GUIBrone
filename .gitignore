@@ -17,3 +17,6 @@ ENV/
 build/
 dist/
 *.egg-info/
+
+# Debug / temporary
+debug_trace.log
